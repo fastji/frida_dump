@@ -70,6 +70,7 @@ function load_all_class() {
         });
     }
 }
+
 var dex_maps = {};
 
 function print_dex_maps() {
@@ -138,7 +139,8 @@ function hook_dex() {
                     console.log("hook_dex:", base, size);
                 }
             },
-            onLeave: function (retval) {}
+            onLeave: function (retval) {
+            }
         });
     }
 

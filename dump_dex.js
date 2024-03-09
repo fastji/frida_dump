@@ -28,7 +28,6 @@ function mkdir(path) {
     var mkdir = new NativeFunction(mkdirPtr, 'int', ['pointer', 'int']);
 
 
-
     var opendirPtr = Module.getExportByName('libc.so', 'opendir');
     var opendir = new NativeFunction(opendirPtr, 'pointer', ['pointer']);
 
@@ -75,7 +74,7 @@ function dump_dex() {
     console.log("[DefineClass:]", addr_DefineClass);
     if (addr_DefineClass) {
         Interceptor.attach(addr_DefineClass, {
-            onEnter: function(args) {
+            onEnter: function (args) {
                 var dex_file = args[5];
                 //ptr(dex_file).add(Process.pointerSize) is "const uint8_t* const begin_;"
                 //ptr(dex_file).add(Process.pointerSize + Process.pointerSize) is "const size_t size_;"
@@ -107,7 +106,8 @@ function dump_dex() {
                     }
                 }
             },
-            onLeave: function(retval) {}
+            onLeave: function (retval) {
+            }
         });
     }
 }
@@ -116,7 +116,7 @@ var is_hook_libart = false;
 
 function hook_dlopen() {
     Interceptor.attach(Module.findExportByName(null, "dlopen"), {
-        onEnter: function(args) {
+        onEnter: function (args) {
             var pathptr = args[0];
             if (pathptr !== undefined && pathptr != null) {
                 var path = ptr(pathptr).readCString();
@@ -127,7 +127,7 @@ function hook_dlopen() {
                 }
             }
         },
-        onLeave: function(retval) {
+        onLeave: function (retval) {
             if (this.can_hook_libart && !is_hook_libart) {
                 dump_dex();
                 is_hook_libart = true;
@@ -136,7 +136,7 @@ function hook_dlopen() {
     })
 
     Interceptor.attach(Module.findExportByName(null, "android_dlopen_ext"), {
-        onEnter: function(args) {
+        onEnter: function (args) {
             var pathptr = args[0];
             if (pathptr !== undefined && pathptr != null) {
                 var path = ptr(pathptr).readCString();
@@ -147,7 +147,7 @@ function hook_dlopen() {
                 }
             }
         },
-        onLeave: function(retval) {
+        onLeave: function (retval) {
             if (this.can_hook_libart && !is_hook_libart) {
                 dump_dex();
                 is_hook_libart = true;

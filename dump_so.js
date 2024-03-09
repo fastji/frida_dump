@@ -1,9 +1,9 @@
 rpc.exports = {
-    findmodule: function(so_name) {
+    findmodule: function (so_name) {
         var libso = Process.findModuleByName(so_name);
         return libso;
     },
-    dumpmodule: function(so_name) {
+    dumpmodule: function (so_name) {
         var libso = Process.findModuleByName(so_name);
         if (libso == null) {
             return -1;
@@ -13,10 +13,10 @@ rpc.exports = {
         libso.buffer = libso_buffer;
         return libso_buffer;
     },
-    allmodule: function() {
+    allmodule: function () {
         return Process.enumerateModules()
     },
-    arch: function() {
+    arch: function () {
         return Process.arch;
     }
 }
