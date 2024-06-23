@@ -1,2 +1,5 @@
 .idea
 .DS_Store
+# dump result
+*.dump.so
+*_fix.so
