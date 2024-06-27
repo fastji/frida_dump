@@ -3,3 +3,4 @@
 # dump result
 *.dump.so
 *_fix.so
+*.so.i64
